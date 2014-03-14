@@ -100,25 +100,41 @@ data Border = NoBorder
 -- | The default configuration values
 defaultConfig :: Config
 defaultConfig =
-    Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
-           , bgColor = "#000000"
-           , fgColor = "#BFBFBF"
-           , position = Top
+    Config { font = "-*-terminus-medium-*-*-*-12-*-*-*-*-*-iso8859-*"
            , border = NoBorder
            , borderColor = "#BFBFBF"
            , hideOnStart = False
            , lowerOnStart = True
            , persistent = False
            , allDesktops = True
-           , overrideRedirect = True
-           , commands = [ Run $ Date "%a %b %_d %Y * %H:%M:%S" "theDate" 10
-                        , Run StdinReader]
+           , bgColor = "#151515"
+           , fgColor = "#D7D0C7"
+           , position = TopW L 100
+           , overrideRedirect = False
+           , commands = [ Run $ Weather "EGPF"
+                            [
+                             "-t"
+                             ," <tempF>F"
+                             ,"-L"
+                             ,"64"
+                             ,"-H"
+                             ,"77"
+                             ,"--normal","#859900"
+                             ,"--high","#dc322f"
+                             ,"--low","#268bd2"
+                            ] 36000
+                        , Run $ DiskIO [("sda1", "<read>:<write>")] [] 10
+                        , Run $ Cpu ["-L","3","-H","50","--normal","#859900","--high","#dc322f"] 10
+                        , Run $ Memory ["-t","Mem: <usedratio>%"] 10
+                        , Run $ Swap [] 10
+                        , Run $ Date "%a %b %_d %l:%M" "date" 10
+                        , Run $ BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)"] 600
+                        , Run StdinReader
+                        ]
            , sepChar = "%"
            , alignSep = "}{"
-           , template = "%StdinReader% }{ " ++
-                        "<fc=#00FF00>%uname%</fc> * <fc=#FF0000>%theDate%</fc>"
+           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %timeleft%"
            }
-
 
 -- | An alias for tuple types that is more convenient for long lists.
 type a :*: b = (a, b)
