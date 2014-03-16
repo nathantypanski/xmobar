@@ -133,7 +133,7 @@ defaultConfig =
                         ]
            , sepChar = "%"
            , alignSep = "}{"
-           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %timeleft%"
+           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %BAT0%"
            }
 
 -- | An alias for tuple types that is more convenient for long lists.
