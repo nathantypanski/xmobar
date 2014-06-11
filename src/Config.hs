@@ -124,16 +124,17 @@ defaultConfig =
                              ,"--low","#268bd2"
                             ] 36000
                         , Run $ DiskIO [("sda1", "<read>:<write>")] [] 10
-                        , Run $ Cpu ["-L","3","-H","50","--normal","#859900","--high","#dc322f"] 10
-                        , Run $ Memory ["-t","Mem: <usedratio>%"] 10
-                        , Run $ Swap [] 10
+                        , Run $ Cpu ["-L","3","-H","50","--normal","#859900","--high","#dc322f"] 100
+                        , Run $ Memory ["-t","Mem: <usedratio>%"] 100
+                        , Run $ Swap [] 100
                         , Run $ Date "%a %b %_d %l:%M" "date" 10
-                        , Run $ BatteryP ["BAT0"] ["-t", "<acstatus><watts> (<left>%)"] 600
+                        , Run $ Com "essid" [] "" 600
+                        , Run $ Com "batp" [] "" 600
                         , Run StdinReader
                         ]
            , sepChar = "%"
            , alignSep = "}{"
-           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %BAT0%"
+           , template = "%StdinReader% }{ %essid% %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %batp%"
            }
 
 -- | An alias for tuple types that is more convenient for long lists.
