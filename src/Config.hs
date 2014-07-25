@@ -128,13 +128,12 @@ defaultConfig =
                         , Run $ Memory ["-t","Mem: <usedratio>%"] 100
                         , Run $ Swap [] 100
                         , Run $ Date "%a %b %_d %l:%M" "date" 10
-                        , Run $ Com "essid" [] "" 600
                         , Run $ Com "batp" [] "" 600
                         , Run StdinReader
                         ]
            , sepChar = "%"
            , alignSep = "}{"
-           , template = "%StdinReader% }{ %essid% %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %batp%"
+           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %batp%"
            }
 
 -- | An alias for tuple types that is more convenient for long lists.
