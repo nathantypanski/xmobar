@@ -128,7 +128,7 @@ defaultConfig =
                         , Run $ Memory ["-t","Mem: <usedratio>%"] 100
                         , Run $ Swap [] 100
                         , Run $ Date "%a %b %_d %l:%M" "date" 10
-                        , Run $ Com "batp" [] "" 600
+                        , Run $ Com "/home/nathan/bin/batp" [] "" 600
                         , Run StdinReader
                         ]
            , sepChar = "%"
