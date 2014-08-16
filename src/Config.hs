@@ -128,12 +128,18 @@ defaultConfig =
                         , Run $ Memory ["-t","Mem: <usedratio>%"] 100
                         , Run $ Swap [] 100
                         , Run $ Date "%a %b %_d %l:%M" "date" 10
-                        , Run $ Com "/home/nathan/bin/batp" [] "" 600
+                        , Run $ BatteryP ["BAT0"]
+                                       ["-t", "<acstatus><watts> (<left>%)",
+                                        "-L", "10", "-H", "80", "-p", "3",
+                                        "--", "-O", "<fc=green>On</fc> - ", "-i", "",
+                                        "-L", "-15", "-H", "-5",
+                                        "-l", "red", "-m", "blue", "-h", "green"]
+                                       600
                         , Run StdinReader
                         ]
            , sepChar = "%"
            , alignSep = "}{"
-           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %batp%"
+           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %BAT0%"
            }
 
 -- | An alias for tuple types that is more convenient for long lists.
