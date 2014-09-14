@@ -129,17 +129,15 @@ defaultConfig =
                         , Run $ Swap [] 100
                         , Run $ Date "%a %b %_d %l:%M" "date" 10
                         , Run $ BatteryP ["BAT0"]
-                                       ["-t", "<acstatus><watts> (<left>%)",
-                                        "-L", "10", "-H", "80", "-p", "3",
-                                        "--", "-O", "<fc=green>On</fc> - ", "-i", "",
-                                        "-L", "-15", "-H", "-5",
-                                        "-l", "red", "-m", "blue", "-h", "green"]
-                                       600
+                                         ["-t", "<acstatus> <left>%",
+                                          "-f", "AC/online", -- file in /sys/class/power_supply with AC info
+                                          "--", "energy_full"]
+                                         600
                         , Run StdinReader
                         ]
            , sepChar = "%"
            , alignSep = "}{"
-           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% %BAT0%"
+           , template = "%StdinReader% }{ %diskio% | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %EGPF% | %battery%"
            }
 
 -- | An alias for tuple types that is more convenient for long lists.
